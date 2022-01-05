@@ -8,9 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    private let fruits = ["りんご", "みかん", "バナナ", "パイナップル"]
+    private let checkMark = Image(systemName: "checkmark")
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            List {
+                ForEach(0..<fruits.count) { index in
+                    HStack {
+                        if index % 2 == 0 {
+                            checkMark
+                                .hidden()
+                        } else {
+                            checkMark
+                                .foregroundColor(.orange)
+                        }
+
+                        Text(fruits[index])
+                    }
+                }
+            }.listStyle(.plain)
+        }
     }
 }
 
