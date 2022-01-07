@@ -7,27 +7,44 @@
 
 import SwiftUI
 
+struct CheckItem {
+    let name: String
+    let isChecked: Bool
+}
+
 struct ContentView: View {
-    private let fruits = ["りんご", "みかん", "バナナ", "パイナップル"]
-    private let checkMark = Image(systemName: "checkmark")
+    private let fruits: [CheckItem] = [
+        .init(name: "りんご", isChecked: false),
+        .init(name: "みかん", isChecked: true),
+        .init(name: "バナナ", isChecked: false),
+        .init(name: "パイナップル", isChecked: true)
+    ]
 
     var body: some View {
         NavigationView {
             List {
                 ForEach(0..<fruits.count) { index in
-                    HStack {
-                        if index % 2 == 0 {
-                            checkMark
-                                .hidden()
-                        } else {
-                            checkMark
-                                .foregroundColor(.orange)
-                        }
-
-                        Text(fruits[index])
-                    }
+                    CheckItemView(item: fruits[index])
                 }
             }.listStyle(.plain)
+        }
+    }
+}
+
+struct CheckItemView: View {
+    let item: CheckItem
+
+    private let checkMark = Image(systemName: "checkmark")
+
+    var body: some View {
+        HStack {
+            if item.isChecked {
+                checkMark.foregroundColor(.orange)
+            } else {
+                checkMark.hidden()
+            }
+
+            Text(item.name)
         }
     }
 }
